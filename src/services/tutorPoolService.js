@@ -14,7 +14,7 @@ export const tutorPoolService = {
    * @returns {Promise}
    */
   createEvent: async (eventData) => {
-    const response = await api.post('/api/tutor-pool/events', eventData);
+    const response = await api.post('/tutor-pool/events', eventData);
     return response.data;
   },
 
@@ -23,7 +23,7 @@ export const tutorPoolService = {
    * @returns {Promise}
    */
   getAllEvents: async () => {
-    const response = await api.get('/api/tutor-pool/events/all');
+    const response = await api.get('/tutor-pool/events/all');
     return response.data;
   },
 
@@ -44,7 +44,7 @@ export const tutorPoolService = {
    * @returns {Promise}
    */
   getAvailableEvents: async () => {
-    const response = await api.get('/api/tutor-pool/events/available');
+    const response = await api.get('/tutor-pool/events/available');
     return response; // Return full response object with success, data, message
   },
 
@@ -54,7 +54,7 @@ export const tutorPoolService = {
    * @returns {Promise}
    */
   bookEvent: async (eventId) => {
-    const response = await api.post('/api/tutor-pool/bookings', { eventId });
+    const response = await api.post('/tutor-pool/bookings', { eventId });
     return response; // Return full response object with success, data, message
   },
 
@@ -73,7 +73,7 @@ export const tutorPoolService = {
    * @returns {Promise}
    */
   getMyBookedEvents: async () => {
-    const response = await api.get('/api/tutor-pool/bookings/my-bookings');
+    const response = await api.get('/tutor-pool/bookings/my-bookings');
     return response.data;
   },
 

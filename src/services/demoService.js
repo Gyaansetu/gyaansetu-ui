@@ -12,7 +12,7 @@ export const demoService = {
    * @returns {Promise}
    */
   createDemo: async (demoData) => {
-    const response = await api.post('/api/demos', demoData);
+    const response = await api.post('/demos', demoData);
     return response.data;
   },
 
@@ -21,7 +21,7 @@ export const demoService = {
    * @returns {Promise}
    */
   getMyDemos: async () => {
-    const response = await api.get('/api/demos/my');
+    const response = await api.get('/demos/my');
     return response.data;
   },
 
@@ -32,7 +32,7 @@ export const demoService = {
    * @returns {Promise}
    */
   actOnDemo: async (demoId, actionData) => {
-    const response = await api.post(`/api/demos/${demoId}/action`, actionData);
+    const response = await api.post(`/demos/${demoId}/action`, actionData);
     return response.data;
   },
 
@@ -43,7 +43,7 @@ export const demoService = {
    * @returns {Promise}
    */
   updateDemoStatus: async (demoId, status) => {
-    const response = await api.patch(`/api/demos/${demoId}/status`, { status });
+    const response = await api.patch(`/demos/${demoId}/status`, { status });
     return response.data;
   },
 };

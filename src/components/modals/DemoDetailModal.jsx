@@ -24,7 +24,7 @@ const DemoDetailModal = ({ isOpen, onClose, demo, userRole }) => {
                       }
           
           // Fallback: Get all tutors and find the one we need
-          const allTutorsResponse = await api.get('/api/tutors');
+          const allTutorsResponse = await api.get('/tutors');
           if (allTutorsResponse.data && Array.isArray(allTutorsResponse.data)) {
             const tutor = allTutorsResponse.data.find(t => t.tutorId === demo.tutorId);
             if (tutor) {
