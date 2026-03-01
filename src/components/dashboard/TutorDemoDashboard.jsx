@@ -16,7 +16,7 @@ const TutorDemoDashboard = () => {
     setIsLoading(true);
     setError(null);
     try {
-            const response = await api.get('/api/demos/my', {
+            const response = await api.get('/demos/my', {
         params: {
           status: selectedStatus !== 'all' ? selectedStatus : undefined,
           sortBy: sortBy

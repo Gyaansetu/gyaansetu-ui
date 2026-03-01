@@ -33,7 +33,7 @@ export const authService = {
    * @returns {Promise} Response with user details
    */
   register: async (userData) => {
-    const response = await api.post('/api/users/register', userData);
+    const response = await api.post('/users/register', userData);
     return response.data;
   },
 

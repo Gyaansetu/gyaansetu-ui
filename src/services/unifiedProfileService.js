@@ -14,7 +14,7 @@ const profileService = {
   getUnifiedProfile: async () => {
     try {
       // First, get user info to determine role
-      const userResponse = await api.get('/api/auth/me');
+      const userResponse = await api.get('/auth/me');
             
       const user = userResponse.data;
       const role = user.role;
@@ -30,18 +30,18 @@ const profileService = {
             switch (role) {
         case 'PARENT':
                     // Get parent profile
-          const parentProfileResponse = await api.get('/api/parents/my-profile');
+          const parentProfileResponse = await api.get('/parents/my-profile');
                     profileData.profileDetails = parentProfileResponse.data.data;
           
           // Get parent's demo requests
-                    const parentDemosResponse = await api.get('/api/demos/my');
+                    const parentDemosResponse = await api.get('/demos/my');
                     profileData.demos = parentDemosResponse.data;
           break;
 
         case 'TUTOR':
                     // Get tutor profile
           try {
-            const tutorProfileResponse = await api.get('/api/tutors/me');
+            const tutorProfileResponse = await api.get('/tutors/me');
                                                 profileData.profileDetails = tutorProfileResponse.data.data || tutorProfileResponse.data;
           } catch (error) {
                                                                         
@@ -55,13 +55,13 @@ const profileService = {
           }
           
           // Get tutor's demo requests
-                    const tutorDemosResponse = await api.get('/api/demos/my');
+                    const tutorDemosResponse = await api.get('/demos/my');
                     profileData.demos = tutorDemosResponse.data;
           break;
 
         case 'ADMIN':
                     // Get admin-specific data
-          const statsResponse = await api.get('/api/admin/dashboard/stats');
+          const statsResponse = await api.get('/admin/dashboard/stats');
                     profileData.profileDetails = {
             ...user,
             stats: statsResponse.data.data
@@ -83,7 +83,7 @@ const profileService = {
    * Get parent profile
    */
   getParentProfile: async () => {
-    const response = await api.get('/api/parents/my-profile');
+    const response = await api.get('/parents/my-profile');
     return response.data;
   },
 
@@ -91,7 +91,7 @@ const profileService = {
    * Get tutor profile
    */
   getTutorProfile: async () => {
-    const response = await api.get('/api/tutors/me');
+    const response = await api.get('/tutors/me');
     return response.data;
   },
 
@@ -99,7 +99,7 @@ const profileService = {
    * Get demo requests for the logged-in user
    */
   getMyDemos: async () => {
-    const response = await api.get('/api/demos/my');
+    const response = await api.get('/demos/my');
     return response.data;
   },
 
@@ -107,7 +107,7 @@ const profileService = {
    * Update tutor profile
    */
   updateTutorProfile: async (tutorId, updateData) => {
-    const response = await api.put(`/api/tutors/${tutorId}`, updateData);
+    const response = await api.put(`/tutors/${tutorId}`, updateData);
     return response.data;
   },
 
@@ -115,7 +115,7 @@ const profileService = {
    * Update parent profile
    */
   updateParentProfile: async (parentId, updateData) => {
-    const response = await api.put(`/api/parents/${parentId}`, updateData);
+    const response = await api.put(`/parents/${parentId}`, updateData);
     return response.data;
   },
 
@@ -123,7 +123,7 @@ const profileService = {
    * Add subjects to tutor profile
    */
   addSubjects: async (tutorId, subjects) => {
-    const response = await api.post(`/api/tutors/${tutorId}/subjects`, { subjects });
+    const response = await api.post(`/tutors/${tutorId}/subjects`, { subjects });
     return response.data;
   },
 
@@ -131,7 +131,7 @@ const profileService = {
    * Add classes to tutor profile
    */
   addClasses: async (tutorId, classes) => {
-    const response = await api.post(`/api/tutors/${tutorId}/classes`, { classes });
+    const response = await api.post(`/tutors/${tutorId}/classes`, { classes });
     return response.data;
   },
 };

@@ -95,7 +95,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'login' }) => {
     setLoading(true);
 
     try {
-      const response = await api.post('/api/auth/otp/send', { email });
+      const response = await api.post('/auth/otp/send', { email });
       
       if (response.success) {
         showSuccess('OTP sent to your email!');
@@ -123,7 +123,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'login' }) => {
     setLoading(true);
 
     try {
-      const response = await api.post('/api/auth/otp/verify', { email, otp });
+      const response = await api.post('/auth/otp/verify', { email, otp });
       
       // Interceptor extracts response.data.data into response.data
       const loginData = response.data;

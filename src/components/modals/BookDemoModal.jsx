@@ -41,8 +41,8 @@ const BookDemoModal = ({ isOpen, onClose, tutor }) => {
     const fetchMasterData = async () => {
       try {
         const [classesRes, subjectsRes] = await Promise.all([
-          api.get('/api/master-data/classes'),
-          api.get('/api/master-data/subjects')
+          api.get('/master-data/classes'),
+          api.get('/master-data/subjects')
         ]);
         setAvailableClasses(classesRes.data || []);
         setAvailableSubjects(subjectsRes.data || []);

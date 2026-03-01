@@ -11,7 +11,7 @@ export const tutorService = {
    * @returns {Promise}
    */
   getAllTutors: async () => {
-    const response = await api.get('/api/tutors');
+    const response = await api.get('/tutors');
     return response.data;
   },
 
@@ -25,7 +25,7 @@ export const tutorService = {
    * @returns {Promise}
    */
   searchTutors: async ({ city, state, subjectId, classLevelId }) => {
-    const response = await api.get('/api/tutors/search', {
+    const response = await api.get('/tutors/search', {
       params: { city, state, subjectId, classLevelId },
     });
     return response.data;

@@ -11,7 +11,7 @@ export const profileService = {
    * @returns {Promise}
    */
   getMyProfile: async () => {
-    const response = await api.get('/api/tutors/me');
+    const response = await api.get('/tutors/me');
     // Return full response (includes data, success, message after interceptor)
     return response;
   },
@@ -23,7 +23,7 @@ export const profileService = {
    * @returns {Promise}
    */
   updateProfile: async (tutorId, profileData) => {
-    const response = await api.put(`/api/tutors/${tutorId}`, profileData);
+    const response = await api.put(`/tutors/${tutorId}`, profileData);
     // Return full response (includes data, success, message after interceptor)
     return response;
   },
@@ -34,7 +34,7 @@ export const profileService = {
    * @returns {Promise}
    */
   getTutorProfile: async (tutorId) => {
-    const response = await api.get(`/api/tutors/${tutorId}`);
+    const response = await api.get(`/tutors/${tutorId}`);
     return response;
   },
 
@@ -45,7 +45,7 @@ export const profileService = {
    * @returns {Promise}
    */
   addSubjects: async (tutorId, subjects) => {
-    const response = await api.post(`/api/tutors/${tutorId}/subjects`, { subjects });
+    const response = await api.post(`/tutors/${tutorId}/subjects`, { subjects });
     return response;
   },
 
@@ -56,7 +56,7 @@ export const profileService = {
    * @returns {Promise}
    */
   addClasses: async (tutorId, classes) => {
-    const response = await api.post(`/api/tutors/${tutorId}/classes`, { classes });
+    const response = await api.post(`/tutors/${tutorId}/classes`, { classes });
     return response;
   },
 
@@ -69,7 +69,7 @@ export const profileService = {
     const formData = new FormData();
     formData.append('file', file);
     
-    const response = await api.post('/api/tutors/upload-image', formData, {
+    const response = await api.post('/tutors/upload-image', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

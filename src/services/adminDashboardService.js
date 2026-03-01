@@ -12,7 +12,7 @@ const adminDashboardService = {
    */
   getStats: async () => {
     try {
-      const response = await api.get('/api/admin/dashboard/stats');
+      const response = await api.get('/admin/dashboard/stats');
       // Return response object with success, data, message for admin dashboard
       return { success: response.success, data: response.data, message: response.message };
     } catch (error) {
@@ -30,7 +30,7 @@ const adminDashboardService = {
    */
   getTutorPoolEvents: async (params = {}) => {
     try {
-      const response = await api.get('/api/admin/dashboard/tutor-pool-events', { params });
+      const response = await api.get('/admin/dashboard/tutor-pool-events', { params });
       // Return response object with success, data, message for admin dashboard
       return { success: response.success, data: response.data, message: response.message };
     } catch (error) {
@@ -45,7 +45,7 @@ const adminDashboardService = {
    */
   getTutorPoolEvent: async (id) => {
     try {
-      const response = await api.get(`/api/admin/dashboard/tutor-pool-events/${id}`);
+      const response = await api.get(`/admin/dashboard/tutor-pool-events/${id}`);
       // Return response object with success, data, message for admin dashboard
       return { success: response.success, data: response.data, message: response.message };
     } catch (error) {
@@ -63,7 +63,7 @@ const adminDashboardService = {
    */
   updateTutorPoolEventStatus: async (id, data) => {
     try {
-      const response = await api.patch(`/api/admin/dashboard/tutor-pool-events/${id}/status`, data);
+      const response = await api.patch(`/admin/dashboard/tutor-pool-events/${id}/status`, data);
       // Return response object with success, data, message for admin dashboard
       return { success: response.success, data: response.data, message: response.message };
     } catch (error) {
@@ -81,7 +81,7 @@ const adminDashboardService = {
    */
   getDirectBookings: async (params = {}) => {
     try {
-      const response = await api.get('/api/admin/dashboard/direct-bookings', { params });
+      const response = await api.get('/admin/dashboard/direct-bookings', { params });
       // Return response object with success, data, message for admin dashboard
       return { success: response.success, data: response.data, message: response.message };
     } catch (error) {
@@ -96,7 +96,7 @@ const adminDashboardService = {
    */
   getDirectBooking: async (id) => {
     try {
-      const response = await api.get(`/api/admin/dashboard/direct-bookings/${id}`);
+      const response = await api.get(`/admin/dashboard/direct-bookings/${id}`);
       // Return response object with success, data, message for admin dashboard
       return { success: response.success, data: response.data, message: response.message };
     } catch (error) {
@@ -114,7 +114,7 @@ const adminDashboardService = {
    */
   updateDirectBookingStatus: async (id, data) => {
     try {
-      const response = await api.patch(`/api/admin/dashboard/direct-bookings/${id}/status`, data);
+      const response = await api.patch(`/admin/dashboard/direct-bookings/${id}/status`, data);
       // Return response object with success, data, message for admin dashboard
       return { success: response.success, data: response.data, message: response.message };
     } catch (error) {
@@ -130,7 +130,7 @@ const adminDashboardService = {
    */
   markPaymentReceived: async (bookingId, bookingType) => {
     try {
-      const response = await api.post(`/api/admin/dashboard/bookings/${bookingId}/payment-received?bookingType=${bookingType}`);
+      const response = await api.post(`/admin/dashboard/bookings/${bookingId}/payment-received?bookingType=${bookingType}`);
       // Return response object with success, data, message for admin dashboard
       return { success: response.success, data: response.data, message: response.message };
     } catch (error) {
@@ -145,7 +145,7 @@ const adminDashboardService = {
    */
   markTutorPoolPaymentReceived: async (id) => {
     try {
-      const response = await api.put(`/api/admin/dashboard/tutor-pool-events/${id}/payment-received`);
+      const response = await api.put(`/admin/dashboard/tutor-pool-events/${id}/payment-received`);
       // Return response object with success, data, message for admin dashboard
       return { success: response.success, data: response.data, message: response.message };
     } catch (error) {
@@ -160,7 +160,7 @@ const adminDashboardService = {
    */
   markDirectBookingPaymentReceived: async (id) => {
     try {
-      const response = await api.put(`/api/admin/dashboard/direct-bookings/${id}/payment-received`);
+      const response = await api.put(`/admin/dashboard/direct-bookings/${id}/payment-received`);
       // Return response object with success, data, message for admin dashboard
       return { success: response.success, data: response.data, message: response.message };
     } catch (error) {
@@ -175,7 +175,7 @@ const adminDashboardService = {
    */
   approveDirectBooking: async (id) => {
     try {
-      const response = await api.post(`/api/admin/dashboard/direct-bookings/${id}/approve`);
+      const response = await api.post(`/admin/dashboard/direct-bookings/${id}/approve`);
       return { success: response.success, data: response.data, message: response.message };
     } catch (error) {
             throw error;
@@ -190,7 +190,7 @@ const adminDashboardService = {
    */
   rejectDirectBooking: async (id, reason) => {
     try {
-      const response = await api.post(`/api/admin/dashboard/direct-bookings/${id}/reject?reason=${encodeURIComponent(reason)}`);
+      const response = await api.post(`/admin/dashboard/direct-bookings/${id}/reject?reason=${encodeURIComponent(reason)}`);
       return { success: response.success, data: response.data, message: response.message };
     } catch (error) {
             throw error;

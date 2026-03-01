@@ -34,7 +34,7 @@ const OtpLoginModal = ({ isOpen, onClose }) => {
     setLoading(true);
 
     try {
-      const response = await api.post('/api/auth/otp/send', { email });
+      const response = await api.post('/auth/otp/send', { email });
       
       // Check if request was successful (response.success from interceptor or direct check)
       if (response.success !== false) {
@@ -74,7 +74,7 @@ const OtpLoginModal = ({ isOpen, onClose }) => {
       console.log('📤 [STEP 3] Sending API request to /api/auth/otp/verify');
       console.log('Request payload:', { email, otp });
       
-      const response = await api.post('/api/auth/otp/verify', { email, otp });
+      const response = await api.post('/auth/otp/verify', { email, otp });
       
       console.log('📥 [STEP 4] API response received');
       console.log('=== FULL RESPONSE OBJECT ===');
