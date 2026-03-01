@@ -4,8 +4,6 @@ import useToast from '../../hooks/useToast';
 import Toast from '../common/Toast';
 import api from '../../services/api';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8081';
-
 const AuthModal = ({ isOpen, onClose, initialMode = 'login' }) => {
   const { register, login } = useAuth();
   const { toast, showSuccess, showError, hideToast } = useToast();
@@ -81,7 +79,8 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'login' }) => {
 
   const handleGoogleLogin = () => {
     // Redirect to backend Google OAuth endpoint
-    window.location.href = `${API_BASE_URL}/oauth2/authorization/google`;
+    // OAuth endpoints (/oauth2/*) are NOT under /api - they go directly to backend via nginx
+    window.location.href = '/oauth2/authorization/google';
   };
 
   const handleSendOtp = async (e) => {

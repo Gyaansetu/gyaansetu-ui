@@ -53,10 +53,10 @@ export const AuthProvider = ({ children }) => {
 
   /**
    * Login with Google OAuth - handled by backend redirect
+   * OAuth endpoints (/oauth2/*) are NOT under /api - they go directly to backend via nginx
    */
   const loginWithGoogle = () => {
-    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8081';
-    window.location.href = `${API_BASE_URL}/oauth2/authorization/google`;
+    window.location.href = '/oauth2/authorization/google';
   };
 
   /**
