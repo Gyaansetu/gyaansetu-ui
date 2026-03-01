@@ -1,0 +1,342 @@
+import { useState } from 'react';
+import Navbar from '../components/layout/Navbar';
+import Footer from '../components/layout/Footer';
+import TutorProfileSection from '../components/sections/TutorProfileSection';
+import BookingsSection from '../components/sections/BookingsSection';
+import EditProfileModal from '../components/modals/EditProfileModal';
+import Toast from '../components/common/Toast';
+import useToast from '../hooks/useToast';
+
+const TutorProfilePage = ({ onOpenLogin, onOpenRegister, onNavigateToFindTutor, onNavigateToNotifications, onNavigateToProfile, onNavigateToAdminBooking, onNavigateToAdminDashboard, onNavigateToTutorPool, onNavigateHome }) => {
+  const [activeTab, setActiveTab] = useState('profile'); // 'profile', 'bookings'
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [profileImage, setProfileImage] = useState('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop');
+  const { toast, showSuccess, showError, hideToast } = useToast();
+
+  // Handle profile image upload
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        showError('Please upload an image file');
+        return;
+      }
+      
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        showError('Image size should be less than 5MB');
+        return;
+      }
+
+      // Create preview URL
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfileImage(reader.result);
+        showSuccess('Profile picture updated successfully!');
+        
+        // TODO: Upload to server
+        console.log('Upload image to server:', file.name);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Mock tutor data - will come from backend API
+  const tutorData = {
+    user: {
+      id: 1,
+      name: 'Dr. Priya Sharma',
+      email: 'priya.sharma@example.com',
+      phone: '+91 98765 43210',
+      role: 'TUTOR',
+      status: 'ACTIVE',
+      profileStatus: 'COMPLETE',
+    },
+    tutorProfile: {
+      id: 1,
+      gender: 'Female',
+      qualification: 'PhD in Mathematics, M.Sc Mathematics, B.Ed',
+      experience: 12,
+      profileSummary: 'Passionate mathematics educator with over 12 years of experience in teaching students from Class 6 to 12, including JEE and competitive exam preparation. Known for making complex concepts simple and engaging. Have successfully mentored 200+ students with 95% achieving their target scores.',
+      profileImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
+      location: {
+        id: 1,
+        city: 'Delhi',
+        area: 'Sector 21, Dwarka',
+        state: 'Delhi',
+        pincode: '110075',
+      },
+      ratingAvg: 4.8,
+      tutorSubjects: [
+        { id: 1, subject: { name: 'Mathematics', category: 'Science' } },
+        { id: 2, subject: { name: 'Physics', category: 'Science' } },
+        { id: 3, subject: { name: 'Chemistry', category: 'Science' } },
+      ],
+      tutorClasses: [
+        { id: 1, classLevel: { name: 'Class 8', level: 8 } },
+        { id: 2, classLevel: { name: 'Class 9', level: 9 } },
+        { id: 3, classLevel: { name: 'Class 10', level: 10 } },
+        { id: 4, classLevel: { name: 'Class 11', level: 11 } },
+        { id: 5, classLevel: { name: 'Class 12', level: 12 } },
+      ],
+    },
+  };
+
+  // Mock bookings data - will come from backend API
+  const bookingsData = {
+    pending: [
+      {
+        id: 1,
+        studentName: 'Rajesh Kumar',
+        class: 'Class 10',
+        subject: 'Mathematics',
+        date: '2026-02-15',
+        time: '4:00 PM',
+        duration: '1 hour',
+        requestedOn: '2026-02-11T10:30:00',
+        status: 'PENDING',
+      },
+      {
+        id: 2,
+        studentName: 'Anita Desai',
+        class: 'Class 12',
+        subject: 'Physics',
+        date: '2026-02-16',
+        time: '6:00 PM',
+        duration: '1 hour',
+        requestedOn: '2026-02-11T09:15:00',
+        status: 'PENDING',
+      },
+    ],
+    accepted: [
+      {
+        id: 3,
+        studentName: 'Priya Sharma',
+        class: 'Class 8',
+        subject: 'Science',
+        date: '2026-02-12',
+        time: '5:30 PM',
+        duration: '1 hour',
+        requestedOn: '2026-02-10T16:45:00',
+        acceptedOn: '2026-02-10T17:00:00',
+        status: 'ACCEPTED',
+        address: 'House No. 123, Sector 18, Noida, UP - 201301',
+      },
+      {
+        id: 4,
+        studentName: 'Amit Patel',
+        class: 'Class 11',
+        subject: 'Chemistry',
+        date: '2026-02-13',
+        time: '3:00 PM',
+        duration: '1 hour',
+        requestedOn: '2026-02-09T14:20:00',
+        acceptedOn: '2026-02-09T15:00:00',
+        status: 'ACCEPTED',
+        address: 'Flat 45, Building 7, Green Valley Society, Gurgaon - 122001',
+      },
+    ],
+    rejected: [
+      {
+        id: 5,
+        studentName: 'Neha Singh',
+        class: 'Class 9',
+        subject: 'Mathematics',
+        date: '2026-02-14',
+        time: '7:00 PM',
+        duration: '1 hour',
+        requestedOn: '2026-02-08T11:00:00',
+        rejectedOn: '2026-02-08T12:00:00',
+        status: 'REJECTED',
+        rejectionReason: 'Time slot not available',
+      },
+    ],
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <Navbar 
+        onOpenLogin={onOpenLogin} 
+        onOpenRegister={onOpenRegister} 
+        onNavigateToFindTutor={onNavigateToFindTutor}
+        onNavigateToNotifications={onNavigateToNotifications}
+        onNavigateToProfile={onNavigateToProfile}
+        onNavigateToAdminBooking={onNavigateToAdminBooking}
+        onNavigateToAdminDashboard={onNavigateToAdminDashboard}
+        onNavigateToTutorPool={onNavigateToTutorPool}
+        onNavigateHome={onNavigateHome}
+        currentPage="profile"
+      />
+      
+      <main className="pt-20">
+        {/* Header Section with Pattern */}
+        <div className="relative overflow-hidden z-20 bg-teal-500">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                  <circle cx="20" cy="20" r="1" fill="white" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#grid)" />
+            </svg>
+          </div>
+          
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 z-30">
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              {/* Profile Image */}
+              <div className="relative group profile-image-container z-40">
+                {/* Image Container with Hover Effect */}
+                <div className="w-32 h-32 rounded-full border-4 border-white shadow-xl overflow-hidden bg-white relative cursor-pointer transition-all duration-300 group-hover:shadow-2xl">
+                  {profileImage ? (
+                    <img 
+                      src={profileImage} 
+                      alt={tutorData.user.name}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center">
+                      <span className="text-white text-5xl font-bold">
+                        {tutorData.user.name.charAt(0)}
+                      </span>
+                    </div>
+                  )}
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Hidden File Input */}
+                <input
+                  type="file"
+                  id="profile-image-upload"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="hidden"
+                />
+
+                {/* Camera Button */}
+                <button
+                  onClick={() => document.getElementById('profile-image-upload').click()}
+                  className="absolute bottom-0 right-0 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-teal-50 hover:scale-110 transition-all duration-200 border-2 border-teal-500"
+                  title="Change profile picture"
+                >
+                  <svg className="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Profile Info */}
+              <div className="flex-1 text-center md:text-left">
+                <h1 className="text-4xl font-bold text-white mb-2">{tutorData.user.name}</h1>
+                <p className="text-white/90 text-lg mb-4">
+                  {tutorData.tutorProfile.qualification.split(',')[0]} • {tutorData.tutorProfile.location.city}
+                </p>
+                <div className="flex flex-wrap gap-3 justify-center md:justify-start">
+                  <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full flex items-center gap-2">
+                    <span className="text-yellow-300 text-lg">⭐</span>
+                    <span className="text-white font-semibold">{tutorData.tutorProfile.ratingAvg}/5.0</span>
+                  </div>
+                  <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
+                    <span className="text-white font-semibold">{tutorData.tutorProfile.experience} Years Experience</span>
+                  </div>
+                  <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
+                    <span className="text-white font-semibold">{tutorData.tutorProfile.tutorSubjects.length} Subjects</span>
+                  </div>
+                  <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
+                    <span className="text-white font-semibold">{tutorData.tutorProfile.tutorClasses.length} Classes</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Edit Button */}
+              <div className="md:self-start">
+                <button
+                  onClick={() => setEditModalOpen(true)}
+                  className="px-6 py-3 bg-white text-teal-600 font-semibold rounded-lg hover:bg-gray-50 transition-colors shadow-lg flex items-center gap-2"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                  Edit Profile
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Tabs Navigation */}
+        <div className="bg-white border-b sticky top-20 z-10 shadow-sm">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex gap-8">
+              <button
+                onClick={() => setActiveTab('profile')}
+                className={`py-4 px-2 font-semibold border-b-2 transition-colors ${
+                  activeTab === 'profile'
+                    ? 'border-teal-500 text-teal-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                Profile Details
+              </button>
+              <button
+                onClick={() => setActiveTab('bookings')}
+                className={`py-4 px-2 font-semibold border-b-2 transition-colors relative ${
+                  activeTab === 'bookings'
+                    ? 'border-teal-500 text-teal-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                Bookings
+                {bookingsData.pending.length > 0 && (
+                  <span className="absolute -top-1 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                    {bookingsData.pending.length}
+                  </span>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Content Section */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {activeTab === 'profile' ? (
+            <TutorProfileSection tutorData={tutorData} />
+          ) : (
+            <BookingsSection bookingsData={bookingsData} />
+          )}
+        </div>
+      </main>
+
+      <Footer />
+
+      {/* Edit Profile Modal */}
+      <EditProfileModal
+        isOpen={editModalOpen}
+        onClose={() => setEditModalOpen(false)}
+        tutorData={tutorData}
+      />
+
+      {/* Toast Notification */}
+      <Toast
+        type={toast.type}
+        message={toast.message}
+        isVisible={toast.isVisible}
+        onClose={hideToast}
+        duration={toast.duration}
+      />
+    </div>
+  );
+};
+
+export default TutorProfilePage;

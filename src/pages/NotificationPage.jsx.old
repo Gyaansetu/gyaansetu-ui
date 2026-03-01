@@ -1,0 +1,258 @@
+import { useState } from 'react';
+import Navbar from '../components/layout/Navbar';
+import Footer from '../components/layout/Footer';
+import NotificationCard from '../components/cards/NotificationCard';
+import NotificationDetailModal from '../components/modals/NotificationDetailModal';
+
+const NotificationPage = ({ onOpenLogin, onOpenRegister, onNavigateToFindTutor, onNavigateToNotifications, onNavigateToProfile, onNavigateToAdminBooking, onNavigateToAdminDashboard, onNavigateToTutorPool, onNavigateHome }) => {
+  const [filterType, setFilterType] = useState('all'); // 'all', 'booking', 'notification'
+  const [selectedNotification, setSelectedNotification] = useState(null);
+  const [detailModalOpen, setDetailModalOpen] = useState(false);
+
+  // Mock notifications data - sorted by newest first
+  const notifications = [
+    {
+      id: 1,
+      type: 'booking',
+      title: 'New Demo Request',
+      message: 'Rajesh Kumar has requested a demo session for Class 10 Mathematics on 15th Feb 2026 at 4:00 PM.',
+      timestamp: new Date('2026-02-11T10:30:00'),
+      isRead: false,
+      details: {
+        studentName: 'Rajesh Kumar',
+        class: 'Class 10',
+        subject: 'Mathematics',
+        date: '15th Feb 2026',
+        time: '4:00 PM',
+        duration: '1 hour',
+      }
+    },
+    {
+      id: 2,
+      type: 'notification',
+      title: 'Profile Viewed',
+      message: '5 parents viewed your profile today. Update your availability to get more bookings!',
+      timestamp: new Date('2026-02-11T09:15:00'),
+      isRead: false,
+      details: {
+        viewCount: 5,
+        tip: 'Tutors with updated availability get 3x more bookings',
+      }
+    },
+    {
+      id: 3,
+      type: 'booking',
+      title: 'Demo Session Confirmed',
+      message: 'Your demo session with Priya Sharma for Class 8 Science is confirmed for 12th Feb 2026 at 5:30 PM.',
+      timestamp: new Date('2026-02-10T16:45:00'),
+      isRead: true,
+      details: {
+        studentName: 'Priya Sharma',
+        class: 'Class 8',
+        subject: 'Science',
+        date: '12th Feb 2026',
+        time: '5:30 PM',
+        duration: '1 hour',
+        meetingLink: 'https://meet.gyaansetu.com/demo/xyz123',
+      }
+    },
+    {
+      id: 4,
+      type: 'notification',
+      title: 'Monthly Newsletter',
+      message: 'February Newsletter: Tips for effective online teaching and new features on GyaanSetu.',
+      timestamp: new Date('2026-02-10T08:00:00'),
+      isRead: true,
+      details: {
+        content: 'This month we are introducing new features like automated scheduling, integrated video calls, and student progress tracking. Check out our blog for detailed guides on maximizing your teaching effectiveness.',
+        link: 'https://gyaansetu.com/newsletter/feb-2026',
+      }
+    },
+    {
+      id: 5,
+      type: 'booking',
+      title: 'New Opportunity',
+      message: 'A parent is looking for a tutor for Class 12 Physics in your area. Apply now!',
+      timestamp: new Date('2026-02-09T14:20:00'),
+      isRead: true,
+      details: {
+        class: 'Class 12',
+        subject: 'Physics',
+        location: 'Sector 21, Delhi',
+        budget: '₹800-1000/hour',
+        requirements: 'Experienced tutor needed for JEE preparation',
+        applicationDeadline: '20th Feb 2026',
+      }
+    },
+    {
+      id: 6,
+      type: 'notification',
+      title: 'Payment Received',
+      message: 'Payment of ₹5,000 received for January sessions. Check your wallet.',
+      timestamp: new Date('2026-02-08T11:00:00'),
+      isRead: true,
+      details: {
+        amount: '₹5,000',
+        month: 'January 2026',
+        sessions: 10,
+        transactionId: 'TXN1234567890',
+      }
+    },
+    {
+      id: 7,
+      type: 'booking',
+      title: 'Demo Request Cancelled',
+      message: 'Demo session with Amit Verma for 11th Feb has been cancelled by the student.',
+      timestamp: new Date('2026-02-07T18:30:00'),
+      isRead: true,
+      details: {
+        studentName: 'Amit Verma',
+        class: 'Class 9',
+        subject: 'English',
+        originalDate: '11th Feb 2026',
+        reason: 'Schedule conflict',
+      }
+    },
+    {
+      id: 8,
+      type: 'notification',
+      title: 'New Feature Alert',
+      message: 'Now you can set your weekly availability and auto-accept bookings! Try it now.',
+      timestamp: new Date('2026-02-06T10:00:00'),
+      isRead: true,
+      details: {
+        feature: 'Auto-Accept Bookings',
+        description: 'Set your weekly availability and let students book slots automatically without manual confirmation.',
+        link: '/settings/availability',
+      }
+    },
+  ];
+
+  // Filter notifications based on selected type
+  const filteredNotifications = notifications.filter(notif => {
+    if (filterType === 'all') return true;
+    return notif.type === filterType;
+  });
+
+  // Count unread notifications
+  const unreadCount = notifications.filter(n => !n.isRead).length;
+
+  const handleCardClick = (notification) => {
+    setSelectedNotification(notification);
+    setDetailModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setDetailModalOpen(false);
+    setSelectedNotification(null);
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <Navbar 
+        onOpenLogin={onOpenLogin} 
+        onOpenRegister={onOpenRegister} 
+        onNavigateToFindTutor={onNavigateToFindTutor}
+        onNavigateToNotifications={onNavigateToNotifications}
+        onNavigateToProfile={onNavigateToProfile}
+        onNavigateToAdminBooking={onNavigateToAdminBooking}
+        onNavigateToAdminDashboard={onNavigateToAdminDashboard}
+        onNavigateToTutorPool={onNavigateToTutorPool}
+        onNavigateHome={onNavigateHome}
+        currentPage="notifications"
+      />
+      
+      <main className="pt-20">
+        {/* Header Section */}
+        <div className="bg-teal-500 py-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-4xl font-bold text-white mb-2">Notifications</h1>
+                <p className="text-white/90">
+                  {unreadCount > 0 ? `You have ${unreadCount} unread notification${unreadCount > 1 ? 's' : ''}` : 'All caught up!'}
+                </p>
+              </div>
+              <div className="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full">
+                <span className="text-white font-semibold text-lg">{filteredNotifications.length} Total</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Filter Section */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Filter Notifications</h2>
+            <div className="flex flex-wrap gap-3">
+              <button
+                onClick={() => setFilterType('all')}
+                className={`px-6 py-2.5 rounded-full font-medium transition-all duration-200 ${
+                  filterType === 'all'
+                    ? 'bg-teal-500 text-white shadow-md'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                All ({notifications.length})
+              </button>
+              <button
+                onClick={() => setFilterType('booking')}
+                className={`px-6 py-2.5 rounded-full font-medium transition-all duration-200 ${
+                  filterType === 'booking'
+                    ? 'bg-teal-500 text-white shadow-md'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                Booking Requests ({notifications.filter(n => n.type === 'booking').length})
+              </button>
+              <button
+                onClick={() => setFilterType('notification')}
+                className={`px-6 py-2.5 rounded-full font-medium transition-all duration-200 ${
+                  filterType === 'notification'
+                    ? 'bg-teal-500 text-white shadow-md'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                Other Notifications ({notifications.filter(n => n.type === 'notification').length})
+              </button>
+            </div>
+          </div>
+
+          {/* Notifications List */}
+          <div className="space-y-4">
+            {filteredNotifications.length === 0 ? (
+              <div className="bg-white rounded-xl shadow-sm p-12 text-center">
+                <div className="text-gray-400 mb-4">
+                  <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">No notifications found</h3>
+                <p className="text-gray-500">You don't have any {filterType !== 'all' ? filterType : ''} notifications yet.</p>
+              </div>
+            ) : (
+              filteredNotifications.map((notification) => (
+                <NotificationCard
+                  key={notification.id}
+                  notification={notification}
+                  onClick={() => handleCardClick(notification)}
+                />
+              ))
+            )}
+          </div>
+        </div>
+      </main>
+
+      <Footer />
+
+      {/* Notification Detail Modal */}
+      <NotificationDetailModal
+        isOpen={detailModalOpen}
+        onClose={handleCloseModal}
+        notification={selectedNotification}
+      />
+    </div>
+  );
+};
+
+export default NotificationPage;

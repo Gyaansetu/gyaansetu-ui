@@ -1,0 +1,204 @@
+import { useState, useEffect } from 'react';
+import TutorCard from '../cards/TutorCard';
+
+// Mock data - Replace with API call
+const mockTutors = [
+  {
+    id: 1,
+    name: 'Priya Sharma',
+    image: 'https://randomuser.me/api/portraits/women/1.jpg',
+    classes: ['Class 9', 'Class 10', 'Class 11', 'Class 12'],
+    subjects: ['Mathematics', 'Physics'],
+    languages: ['English', 'Hindi'],
+    experience: 5,
+    rating: 4.8,
+    reviewCount: 127,
+    pricePerMonth: 3000,
+    gender: 'Female',
+    bio: 'Passionate about making math easy and fun for students.',
+  },
+  {
+    id: 2,
+    name: 'Rajesh Kumar',
+    image: 'https://randomuser.me/api/portraits/men/2.jpg',
+    classes: ['Class 6', 'Class 7', 'Class 8', 'Class 9'],
+    subjects: ['Science', 'Mathematics'],
+    languages: ['English', 'Hindi', 'Marathi'],
+    experience: 8,
+    rating: 4.9,
+    reviewCount: 203,
+    pricePerMonth: 4000,
+    gender: 'Male',
+    bio: 'Expert in CBSE and ICSE curriculum with proven track record.',
+  },
+  {
+    id: 3,
+    name: 'Anita Desai',
+    image: 'https://randomuser.me/api/portraits/women/3.jpg',
+    classes: ['Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5'],
+    subjects: ['English', 'Hindi', 'Mathematics'],
+    languages: ['English', 'Hindi'],
+    experience: 6,
+    rating: 4.7,
+    reviewCount: 89,
+    pricePerMonth: 2500,
+    gender: 'Female',
+    bio: 'Specialized in primary education with child-friendly approach.',
+  },
+  {
+    id: 4,
+    name: 'Vikram Singh',
+    image: 'https://randomuser.me/api/portraits/men/4.jpg',
+    classes: ['Class 11', 'Class 12'],
+    subjects: ['Chemistry', 'Biology'],
+    languages: ['English', 'Hindi'],
+    experience: 10,
+    rating: 5.0,
+    reviewCount: 156,
+    pricePerMonth: 5000,
+    gender: 'Male',
+    bio: 'IIT graduate with expertise in competitive exam preparation.',
+  },
+  {
+    id: 5,
+    name: 'Sneha Patel',
+    image: 'https://randomuser.me/api/portraits/women/5.jpg',
+    classes: ['Class 8', 'Class 9', 'Class 10'],
+    subjects: ['Computer Science', 'Mathematics'],
+    languages: ['English', 'Gujarati'],
+    experience: 4,
+    rating: 4.6,
+    reviewCount: 71,
+    pricePerMonth: 3500,
+    gender: 'Female',
+    bio: 'Tech enthusiast teaching programming and computational thinking.',
+  },
+  {
+    id: 6,
+    name: 'Arjun Mehta',
+    image: 'https://randomuser.me/api/portraits/men/6.jpg',
+    classes: ['Class 9', 'Class 10', 'Class 11', 'Class 12'],
+    subjects: ['History', 'Geography', 'Economics'],
+    languages: ['English', 'Hindi'],
+    experience: 7,
+    rating: 4.8,
+    reviewCount: 134,
+    pricePerMonth: 3200,
+    gender: 'Male',
+    bio: 'Making social sciences interesting with real-world examples.',
+  },
+];
+
+const TutorGrid = ({ searchQuery, filters, onBookDemo }) => {
+  const [filteredTutors, setFilteredTutors] = useState(mockTutors);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    
+    // Simulate API delay
+    const timer = setTimeout(() => {
+      let result = [...mockTutors];
+
+      // Filter by search query
+      if (searchQuery) {
+        result = result.filter((tutor) =>
+          tutor.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          tutor.subjects.some((subject) => subject.toLowerCase().includes(searchQuery.toLowerCase()))
+        );
+      }
+
+      // Filter by class
+      if (filters.class.length > 0) {
+        result = result.filter((tutor) =>
+          tutor.classes.some((c) => filters.class.includes(c))
+        );
+      }
+
+      // Filter by subject
+      if (filters.subject.length > 0) {
+        result = result.filter((tutor) =>
+          tutor.subjects.some((s) => filters.subject.includes(s))
+        );
+      }
+
+      // Filter by gender
+      if (filters.gender && filters.gender !== 'Any') {
+        result = result.filter((tutor) => tutor.gender === filters.gender);
+      }
+
+      // Filter by fees
+      result = result.filter(
+        (tutor) => tutor.pricePerMonth >= filters.minFees && tutor.pricePerMonth <= filters.maxFees
+      );
+
+      // Filter by rating
+      if (filters.minRating > 0) {
+        result = result.filter((tutor) => tutor.rating >= filters.minRating);
+      }
+
+      setFilteredTutors(result);
+      setIsLoading(false);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery, filters]);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-gray-200 border-t-teal-500"></div>
+          <p className="mt-4 text-gray-600">Finding the best tutors for you...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (filteredTutors.length === 0) {
+    return (
+      <div className="text-center py-20">
+        <svg className="mx-auto h-24 w-24 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <h3 className="mt-6 text-xl font-semibold text-gray-900">No tutors found</h3>
+        <p className="mt-2 text-gray-600">Try adjusting your filters or search query</p>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      {/* Results Header */}
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-gray-900">
+          {filteredTutors.length} Tutor{filteredTutors.length !== 1 ? 's' : ''} Available
+        </h2>
+        <select 
+          className="px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
+          style={{ accentColor: '#14b8a6' }}
+        >
+          <option>Most Relevant</option>
+          <option>Highest Rated</option>
+          <option>Lowest Price</option>
+          <option>Highest Price</option>
+          <option>Most Experienced</option>
+        </select>
+      </div>
+
+      {/* Tutor Cards Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {filteredTutors.map((tutor, index) => (
+          <TutorCard 
+            key={tutor.id} 
+            tutor={tutor} 
+            onBookDemo={onBookDemo}
+            delay={index * 100}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default TutorGrid;
