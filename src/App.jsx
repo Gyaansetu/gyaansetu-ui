@@ -44,7 +44,7 @@ function AppContent() {
         setAuthModalOpen(true);
       }, 0);
 
-      // Clean URL
+      // Clean URL with clean stuff
       window.history.replaceState({}, document.title, window.location.pathname);
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
