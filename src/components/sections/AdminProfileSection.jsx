@@ -10,25 +10,25 @@ const AdminProfileSection = ({
   const stats = profileDetails?.stats || {};
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-24 pb-8">
       {/* Profile Header */}
       <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
-        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 h-32"></div>
-        <div className="px-8 pb-8">
-          <div className="flex items-start -mt-16">
-            <div className="relative">
+        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 h-24 md:h-32"></div>
+        <div className="px-4 sm:px-8 pb-5 sm:pb-8">
+          <div className="flex flex-col sm:flex-row items-start -mt-12 md:-mt-16 gap-4">
+            <div className="relative flex-shrink-0">
               <img
                 src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=7c3aed&color=fff&size=128`}
                 alt={user.name}
-                className="w-32 h-32 rounded-full border-4 border-white shadow-lg"
+                className="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-white shadow-lg"
               />
               <div className="absolute bottom-0 right-0 bg-purple-600 text-white text-xs px-2 py-1 rounded-full border-2 border-white">
                 Admin
               </div>
             </div>
-            <div className="ml-6 mt-20">
-              <h1 className="text-3xl font-bold text-gray-900">{user.name}</h1>
-              <p className="text-gray-600 mt-1">System Administrator</p>
+            <div className="flex-1 mt-12 md:mt-20">
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">{user.name}</h1>
+              <p className="text-sm sm:text-base text-gray-600 mt-1">System Administrator</p>
             </div>
           </div>
 
@@ -40,7 +40,7 @@ const AdminProfileSection = ({
               </svg>
               <div>
                 <p className="text-sm text-gray-500">Email</p>
-                <p className="text-gray-900">{user.email || 'admin@gyaansetu.com'}</p>
+                <p className="text-gray-900 break-all">{user.email || 'admin@gyaansetu.com'}</p>
               </div>
             </div>
             <div className="flex items-center">
@@ -57,10 +57,10 @@ const AdminProfileSection = ({
       </div>
 
       {/* Dashboard Stats */}
-      <div className="bg-white rounded-lg shadow-md p-8 mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">Platform Overview</h2>
+      <div className="bg-white rounded-lg shadow-md p-4 sm:p-8 mb-6 sm:mb-8">
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Platform Overview</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {/* Total Users */}
           <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-6">
             <div className="flex items-center justify-between">
@@ -122,10 +122,10 @@ const AdminProfileSection = ({
       </div>
 
       {/* Quick Actions */}
-      <div className="bg-white rounded-lg shadow-md p-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">Quick Actions</h2>
+      <div className="bg-white rounded-lg shadow-md p-4 sm:p-8">
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Quick Actions</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <button
             onClick={onNavigateToAdminDashboard}
             className="flex items-center p-4 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg hover:from-purple-600 hover:to-indigo-700 transition shadow-md"

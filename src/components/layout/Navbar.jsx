@@ -21,14 +21,14 @@ const Navbar = ({ onOpenLogin, onOpenRegister, onNavigateToFindTutor, onNavigate
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg shadow-sm border-b border-gray-100">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-lg shadow-sm border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-16 sm:h-20">
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
             <button onClick={handleLogoClick} className="flex items-center space-x-2 cursor-pointer group">
               <div className="relative">
-                <span className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-teal-400 bg-clip-text text-transparent transition-all duration-300 group-hover:scale-105">
+                <span className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-teal-600 to-teal-400 bg-clip-text text-transparent transition-all duration-300 group-hover:scale-105">
                   GyaanSetu
                 </span>
                 <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-teal-600 to-teal-400 group-hover:w-full transition-all duration-300"></div>
@@ -180,9 +180,11 @@ const Navbar = ({ onOpenLogin, onOpenRegister, onNavigateToFindTutor, onNavigate
           </button>
         </div>
 
-        {/* Mobile menu */}
-        {isMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-gray-100 bg-white/95 backdrop-blur-lg">
+        {/* Mobile menu - slide down with smooth transition */}
+        <div className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          isMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
+        }`}>
+          <div className="py-3 border-t border-gray-100 bg-white">
             <div className="flex flex-col space-y-2 px-2">
               {/* Find Tutors - Available for PARENT and guests */}
               {onNavigateToFindTutor && (!user?.role || user?.role === 'PARENT') && (
@@ -337,7 +339,7 @@ const Navbar = ({ onOpenLogin, onOpenRegister, onNavigateToFindTutor, onNavigate
               </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </nav>
   );

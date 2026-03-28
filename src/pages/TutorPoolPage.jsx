@@ -242,7 +242,7 @@ const TutorPoolPage = ({ onOpenLogin, onOpenRegister, onNavigateToFindTutor, onN
         currentPage="tutor-pool"
       />
 
-      <main className="pt-20">
+      <main className="pt-16 sm:pt-20">
         {/* Modern Hero Section */}
         <div className="relative py-16 overflow-hidden">
           {/* Animated background elements */}
@@ -256,10 +256,10 @@ const TutorPoolPage = ({ onOpenLogin, onOpenRegister, onNavigateToFindTutor, onN
               <div className="inline-block px-4 py-2 bg-gradient-to-r from-teal-50 to-cyan-50 rounded-full shadow-sm mb-4 border border-teal-100">
                 <span className="text-teal-600 font-semibold text-sm">🎯 {hasRole('ADMIN') ? 'All Demo Events' : 'Available Opportunities'}</span>
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 Tutor <span className="bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">Demo Pool</span>
               </h1>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-base sm:text-xl text-gray-600 max-w-3xl mx-auto">
                 {hasRole('ADMIN') 
                   ? 'Manage all demo bookings and track tutor assignments'
                   : 'Browse and book demo opportunities to expand your teaching reach'
@@ -268,7 +268,7 @@ const TutorPoolPage = ({ onOpenLogin, onOpenRegister, onNavigateToFindTutor, onN
             </div>
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 animate-slideUp">
                 <div className="flex items-center justify-between mb-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-green-100 to-emerald-100 rounded-xl flex items-center justify-center">

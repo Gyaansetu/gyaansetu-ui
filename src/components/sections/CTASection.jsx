@@ -24,17 +24,17 @@ const CTASection = () => {
           <span className="text-white font-semibold text-sm">🚀 Get Started Now</span>
         </div>
         
-        <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
           Start Your Learning <br className="hidden md:block" />
           <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
             Journey Today
           </span>
         </h2>
-        <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-base sm:text-xl md:text-2xl text-white/90 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed">
           Join thousands of students and tutors already benefiting from GyaanSetu's trusted platform
         </p>
         
-        <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center mb-8 sm:mb-12">
           <button className="px-8 py-4 bg-white text-teal-600 font-bold rounded-full hover:bg-gray-50 transition-all duration-300 shadow-2xl hover:shadow-white/30 hover:scale-105 group text-lg">
             <span className="flex items-center justify-center gap-2">
               Find Tutors Near Me
@@ -49,31 +49,21 @@ const CTASection = () => {
         </div>
 
         {/* Trust badges */}
-        <div className="flex flex-wrap justify-center gap-8 text-white/90">
-          <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full hover:bg-white/20 transition-all duration-300 group">
-            <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-6 text-white/90">
+          {[
+            { label: '100% Verified' },
+            { label: 'Free Demo' },
+            { label: 'No Hidden Fees' },
+          ].map((badge) => (
+            <div key={badge.label} className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full hover:bg-white/20 transition-all duration-300 group">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <span className="font-semibold text-sm sm:text-base">{badge.label}</span>
             </div>
-            <span className="font-semibold">100% Verified</span>
-          </div>
-          <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full hover:bg-white/20 transition-all duration-300 group">
-            <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-            </div>
-            <span className="font-semibold">Free Demo</span>
-          </div>
-          <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full hover:bg-white/20 transition-all duration-300 group">
-            <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-            </div>
-            <span className="font-semibold">No Hidden Fees</span>
-          </div>
+          ))}
         </div>
       </div>
     </section>

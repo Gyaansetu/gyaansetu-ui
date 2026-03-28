@@ -34,7 +34,7 @@ function AppContent() {
     const token = urlParams.get('token');
 
     if (token) {
-      showSuccess('Logged in with Google successfully! Welcome back.');
+      showSuccess('Logged in successfully! Welcome back.');
     } else if (error === 'not_registered') {
       // User tried to login but is not registered
       showError('Account not found. Please register first to continue.');

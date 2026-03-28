@@ -24,7 +24,7 @@ const HeroSection = ({ onOpenRegister }) => {
   }, []);
 
   return (
-    <section className="relative pt-32 md:pt-36 pb-24 md:pb-32 overflow-hidden bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50">
+    <section className="relative pt-24 sm:pt-32 md:pt-36 pb-8 sm:pb-12 md:pb-32 overflow-hidden bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-20 left-10 w-72 h-72 bg-teal-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-float"></div>
@@ -35,7 +35,7 @@ const HeroSection = ({ onOpenRegister }) => {
       {/* Curved bottom edge */}
       <div className="absolute bottom-0 left-0 right-0">
         <svg
-          className="w-full h-32 md:h-40"
+          className="w-full h-20 sm:h-28 md:h-40"
           viewBox="0 0 1440 120"
           fill="none"
           preserveAspectRatio="none"
@@ -51,15 +51,15 @@ const HeroSection = ({ onOpenRegister }) => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="text-center lg:text-left z-10 animate-slideInLeft">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full shadow-lg mb-6 overflow-hidden">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full shadow-lg mb-6 max-w-full">
               <span
-                className="text-teal-600 font-semibold text-sm whitespace-nowrap"
+                className="text-teal-600 font-semibold text-xs sm:text-sm text-center"
                 style={{ opacity: visible ? 1 : 0, transition: 'opacity 0.35s ease' }}
               >
                 {bannerMessages[msgIndex].icon} {bannerMessages[msgIndex].text}
               </span>
             </div>
-            <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-gray-900 leading-tight mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 leading-tight mb-6">
               Finding Tutors{' '}
               <span className="bg-gradient-to-r from-orange-500 via-pink-500 to-red-500 bg-clip-text text-transparent">
                 at Your Doorstep
@@ -72,15 +72,31 @@ const HeroSection = ({ onOpenRegister }) => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
               <button
                 onClick={onOpenRegister}
-                className="px-8 py-4 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-semibold rounded-full hover:from-teal-700 hover:to-cyan-700 transition-all duration-300 text-lg shadow-xl shadow-teal-500/30 hover:shadow-2xl hover:shadow-teal-500/40 hover:scale-105 group"
+                className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-semibold rounded-full hover:from-teal-700 hover:to-cyan-700 transition-all duration-300 text-lg shadow-xl shadow-teal-500/30 hover:shadow-2xl hover:shadow-teal-500/40 hover:scale-105 group"
               >
-                <span className="flex items-center gap-2">
+                <span className="flex items-center justify-center gap-2">
                   Join for free
                   <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                 </span>
               </button>
+            </div>
+
+            {/* Mobile stats — visible only below lg */}
+            <div className="grid grid-cols-3 gap-3 mt-8 lg:hidden">
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-3 shadow-lg border border-gray-100 text-center">
+                <p className="text-xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">15k+</p>
+                <p className="text-xs text-gray-500 font-medium">Students</p>
+              </div>
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-3 shadow-lg border border-gray-100 text-center">
+                <p className="text-xl font-bold bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">500+</p>
+                <p className="text-xs text-gray-500 font-medium">Tutors</p>
+              </div>
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-3 shadow-lg border border-gray-100 text-center">
+                <p className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">48h</p>
+                <p className="text-xs text-gray-500 font-medium">Avg Match</p>
+              </div>
             </div>
           </div>
 

@@ -84,10 +84,10 @@ const TestimonialsSection = () => {
         </p>
       </div>
 
-      <div className="relative max-w-3xl mx-auto overflow-hidden" style={{minHeight: 340}}>
+      <div className="relative max-w-3xl mx-auto px-8 sm:px-12" style={{minHeight: 300}}>
         {/* Card with sliding animation */}
         <div
-          className={`bg-white rounded-3xl shadow-xl border border-gray-100 p-10 md:p-14 absolute left-0 right-0 transition-transform duration-350 ease-in-out
+          className={`bg-white rounded-3xl shadow-xl border border-gray-100 p-6 sm:p-10 md:p-14 absolute left-0 right-0 transition-transform duration-350 ease-in-out
             ${isAnimating
               ? direction === 'right'
                 ? '-translate-x-full opacity-0'
@@ -97,25 +97,25 @@ const TestimonialsSection = () => {
           key={current}
         >
           {/* Stars */}
-          <div className="flex gap-1 mb-6 justify-center">
+          <div className="flex gap-1 mb-4 justify-center">
             {[...Array(t.rating)].map((_, i) => (
-              <svg key={i} className="w-6 h-6 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+              <svg key={i} className="w-4 h-4 sm:w-6 sm:h-6 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
               </svg>
             ))}
           </div>
 
           {/* Quote */}
-          <p className="text-gray-700 text-lg md:text-xl leading-relaxed text-center italic mb-8">
+          <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed text-center italic mb-6">
             "{t.text}"
           </p>
 
           {/* Author */}
-          <div className="flex items-center justify-center gap-4">
-            <img src={t.image} alt={t.name} className="w-14 h-14 rounded-full ring-2 ring-teal-200" />
+          <div className="flex items-center justify-center gap-3">
+            <img src={t.image} alt={t.name} className="w-10 h-10 sm:w-14 sm:h-14 rounded-full ring-2 ring-teal-200" />
             <div className="text-left">
-              <div className="font-semibold text-gray-900 text-lg">{t.name}</div>
-              <div className="text-sm text-teal-600">{t.role}</div>
+              <div className="font-semibold text-gray-900 text-sm sm:text-base">{t.name}</div>
+              <div className="text-xs sm:text-sm text-teal-600">{t.role}</div>
             </div>
           </div>
         </div>
@@ -123,7 +123,7 @@ const TestimonialsSection = () => {
         {/* Prev / Next arrows */}
         <button
           onClick={prev}
-          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 md:-translate-x-8 w-10 h-10 rounded-full bg-white shadow-lg border border-gray-100 flex items-center justify-center text-gray-600 hover:text-teal-600 hover:shadow-xl transition-all duration-200 z-10"
+          className="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white shadow-lg border border-gray-100 flex items-center justify-center text-gray-600 hover:text-teal-600 hover:shadow-xl transition-all duration-200 z-10"
           aria-label="Previous testimonial"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -132,7 +132,7 @@ const TestimonialsSection = () => {
         </button>
         <button
           onClick={next}
-          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 md:translate-x-8 w-10 h-10 rounded-full bg-white shadow-lg border border-gray-100 flex items-center justify-center text-gray-600 hover:text-teal-600 hover:shadow-xl transition-all duration-200 z-10"
+          className="absolute right-0 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white shadow-lg border border-gray-100 flex items-center justify-center text-gray-600 hover:text-teal-600 hover:shadow-xl transition-all duration-200 z-10"
           aria-label="Next testimonial"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
