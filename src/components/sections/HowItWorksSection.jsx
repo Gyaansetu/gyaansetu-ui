@@ -45,7 +45,7 @@ const HowItWorksSection = () => {
   ];
 
   return (
-    <SectionWrapper background="white" className="py-16 md:py-20" id="how-it-works">
+    <SectionWrapper id="how-it-works" background="white" className="py-16 md:py-20" id="how-it-works">
       <div className="text-center mb-16">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
           How GyaanSetu Works
