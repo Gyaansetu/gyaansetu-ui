@@ -43,7 +43,7 @@ const FindTutorPage = ({ onOpenLogin, onOpenRegister, onNavigateHome, onNavigate
         currentPage="find-tutor" 
       />
       
-      <main className="pt-20">
+      <main className="pt-16 sm:pt-20">
         {/* Hero Section with Search */}
         <FindTutorHero searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         

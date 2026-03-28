@@ -18,7 +18,7 @@ const StatsSection = () => {
         <div className="inline-block px-4 py-2 bg-gradient-to-r from-teal-50 to-cyan-50 rounded-full shadow-sm mb-4">
           <span className="text-teal-600 font-semibold text-sm">📊 Our Impact</span>
         </div>
-        <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-8">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-8">
           Our <span className="bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">Success</span>
         </h2>
         <p className="text-base md:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
@@ -27,7 +27,7 @@ const StatsSection = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 md:gap-12 px-4 relative z-10">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 md:gap-12 px-4 relative z-10">
         {stats.map((stat, index) => (
           <div
             key={index}
@@ -39,7 +39,7 @@ const StatsSection = () => {
               <div className={`w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br ${stat.color} opacity-10 absolute inset-0 transform group-hover:scale-125 group-hover:rotate-6 transition-all duration-500`}></div>
               
               {/* Number */}
-              <div className={`relative text-5xl md:text-6xl lg:text-7xl font-bold mb-2 bg-gradient-to-r ${stat.color} bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300`}>
+              <div className={`relative text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-2 bg-gradient-to-r ${stat.color} bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300`}>
                 {stat.number}
               </div>
               

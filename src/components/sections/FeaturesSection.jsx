@@ -72,36 +72,36 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <SectionWrapper id="why-gyaansetu" background="gray" className="py-20 md:py-28 relative overflow-hidden">
+    <SectionWrapper id="why-gyaansetu" background="gray" className="py-8 sm:py-12 md:py-24 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 right-0 w-96 h-96 bg-teal-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float-delayed"></div>
       </div>
 
-      <div className="text-center mb-16 relative z-10 animate-fadeIn">
+      <div className="text-center mb-10 md:mb-16 relative z-10 animate-fadeIn">
         <div className="inline-block px-4 py-2 bg-gradient-to-r from-teal-50 to-cyan-50 rounded-full shadow-sm mb-4">
           <span className="text-teal-600 font-semibold text-sm">✨ Why GyaanSetu</span>
         </div>
-        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
           Why Choose <span className="bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">GyaanSetu</span>?
         </h2>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-base sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
           India's most parent-friendly home tutor platform — built on trust, safety, and tangible results
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 relative z-10">
         {features.map((feature, index) => (
           <div
             key={index}
-            className="group bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border border-gray-100 animate-slideUp"
+            className="group bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 sm:hover:-translate-y-3 border border-gray-100 animate-slideUp"
             style={{ animationDelay: `${index * 0.1}s` }}
           >
-            <div className={`w-16 h-16 mb-6 rounded-2xl bg-gradient-to-br ${feature.bgGradient} flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
+            <div className={`w-12 h-12 sm:w-16 sm:h-16 mb-4 sm:mb-6 rounded-xl sm:rounded-2xl bg-gradient-to-br ${feature.bgGradient} flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
               {feature.icon}
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-teal-600 transition-colors">
+            <h3 className="text-base sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3 group-hover:text-teal-600 transition-colors">
               {feature.title}
             </h3>
             <p className="text-gray-600 leading-relaxed">
