@@ -14,6 +14,10 @@ function AppContent() {
   const { isAuthenticated, user } = useAuth();
   const { toast, showError, showSuccess, hideToast } = useToast();
   const prevUserRef = useRef(null);
+  const [currentPage, setCurrentPage] = useState('home');
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState('login');
+  const [pendingNavigation, setPendingNavigation] = useState(null);
 
   // Show toast when user logs out
   useEffect(() => {
@@ -21,11 +25,7 @@ function AppContent() {
       showSuccess('You have been logged out successfully.');
     }
     prevUserRef.current = user;
-  }, [user]);
-  const [currentPage, setCurrentPage] = useState('home');
-  const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [authMode, setAuthMode] = useState('login');
-  const [pendingNavigation, setPendingNavigation] = useState(null);
+  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Handle OAuth callback and error parameters
   useEffect(() => {
@@ -38,13 +38,16 @@ function AppContent() {
     } else if (error === 'not_registered') {
       // User tried to login but is not registered
       showError('Account not found. Please register first to continue.');
-      setAuthMode('register');
-      setAuthModalOpen(true);
+      // Defer setState calls to avoid cascading renders inside effect
+      setTimeout(() => {
+        setAuthMode('register');
+        setAuthModalOpen(true);
+      }, 0);
 
       // Clean URL
       window.history.replaceState({}, document.title, window.location.pathname);
     }
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const openLogin = () => {
     setAuthMode('login');
