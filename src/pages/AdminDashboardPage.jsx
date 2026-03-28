@@ -181,10 +181,10 @@ const AdminDashboardPage = ({ onOpenLogin, onOpenRegister, onNavigateToFindTutor
 
   const handleMoveToTutorPool = (booking) => {
     // TODO: API call to create tutor pool event from direct booking
-    
+
     // Extract class from studentClass (e.g., "Class 10" -> ["Class 10"])
     const classes = [booking.studentClass];
-    
+
     // Create a new tutor pool event
     const newTutorPoolEvent = {
       id: `TP${String(tutorPoolBookings.length + 1).padStart(3, '0')}`,
@@ -203,12 +203,12 @@ const AdminDashboardPage = ({ onOpenLogin, onOpenRegister, onNavigateToFindTutor
 
     showSuccess(`Event moved to Tutor Pool successfully! New Event ID: ${newTutorPoolEvent.id}`);
     showWarning('Note: This is a demo. In production, this will create a new tutor pool event via API.');
-    
+
     // In production, after successful API call:
     // 1. Create new tutor pool event
     // 2. Optionally cancel/archive the direct booking
     // 3. Refresh both lists
-    
+
       };
 
   const handleApproveBooking = async (bookingId) => {
@@ -343,14 +343,14 @@ const AdminDashboardPage = ({ onOpenLogin, onOpenRegister, onNavigateToFindTutor
         currentPage="admin-dashboard"
       />
 
-      <main className="pt-20 pb-12">
+      <main className="pt-16 sm:pt-20 pb-12">
         {/* Header Section */}
         <div className="bg-gradient-to-r from-teal-600 to-teal-500 text-white py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-4xl font-bold mb-2">Admin Dashboard</h1>
-                <p className="text-lg text-teal-50">Manage all demo bookings and track performance</p>
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1 sm:mb-2">Admin Dashboard</h1>
+                <p className="text-sm sm:text-lg text-teal-50">Manage all demo bookings and track performance</p>
               </div>
               <div className="hidden md:flex items-center gap-4">
                 <div className="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3 text-center">
@@ -372,7 +372,7 @@ const AdminDashboardPage = ({ onOpenLogin, onOpenRegister, onNavigateToFindTutor
             <div className="flex border-b">
               <button
                 onClick={() => setActiveTab('tutor-pool')}
-                className={`flex-1 px-6 py-4 text-center font-semibold transition-all ${
+                className={`flex-1 px-3 sm:px-6 py-3 sm:py-4 text-center text-sm sm:text-base font-semibold transition-all ${
                   activeTab === 'tutor-pool'
                     ? 'text-teal-600 border-b-2 border-teal-600 bg-teal-50'
                     : 'text-gray-600 hover:text-teal-600 hover:bg-gray-50'
@@ -390,7 +390,7 @@ const AdminDashboardPage = ({ onOpenLogin, onOpenRegister, onNavigateToFindTutor
               </button>
               <button
                 onClick={() => setActiveTab('direct-booking')}
-                className={`flex-1 px-6 py-4 text-center font-semibold transition-all ${
+                className={`flex-1 px-3 sm:px-6 py-3 sm:py-4 text-center text-sm sm:text-base font-semibold transition-all ${
                   activeTab === 'direct-booking'
                     ? 'text-teal-600 border-b-2 border-teal-600 bg-teal-50'
                     : 'text-gray-600 hover:text-teal-600 hover:bg-gray-50'

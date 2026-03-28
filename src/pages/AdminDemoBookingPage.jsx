@@ -262,14 +262,14 @@ const AdminDemoBookingPage = ({ onOpenLogin, onOpenRegister, onNavigateToFindTut
         currentPage="admin-booking"
       />
 
-      <main className="pt-20 pb-12">
+      <main className="pt-16 sm:pt-20 pb-12">
         {/* Banner Section - Seamless with navbar */}
         <div className="bg-teal-500 text-white py-12 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-3">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-3">
               Admin Demo Booking Portal
             </h1>
-            <p className="text-lg md:text-xl text-teal-50">
+            <p className="text-base sm:text-lg md:text-xl text-teal-50">
               Create demo booking requests on behalf of parents during phone calls
             </p>
           </div>
@@ -277,7 +277,7 @@ const AdminDemoBookingPage = ({ onOpenLogin, onOpenRegister, onNavigateToFindTut
 
         {/* Form Section */}
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-          <div className="bg-white rounded-xl shadow-lg p-8">
+          <div className="bg-white rounded-xl shadow-lg p-4 sm:p-8">
             {/* Info Card */}
             <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8 rounded-r-lg">
               <div className="flex items-start">

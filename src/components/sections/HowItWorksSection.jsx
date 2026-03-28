@@ -7,7 +7,7 @@ const HowItWorksSection = () => {
       title: 'Search Tutor by Subject & Area',
       description: 'Enter your location, subject, and grade to find matching tutors nearby.',
       icon: (
-        <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-8 h-8 sm:w-12 sm:h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
       ),
@@ -17,7 +17,7 @@ const HowItWorksSection = () => {
       title: 'Compare Profiles',
       description: 'Review tutor qualifications, experience, ratings, and pricing to make an informed choice.',
       icon: (
-        <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-8 h-8 sm:w-12 sm:h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
         </svg>
       ),
@@ -27,7 +27,7 @@ const HowItWorksSection = () => {
       title: 'Request Demo',
       description: 'Book a free demo session to assess teaching style and compatibility.',
       icon: (
-        <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-8 h-8 sm:w-12 sm:h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
       ),
@@ -37,7 +37,7 @@ const HowItWorksSection = () => {
       title: 'Start Learning at Home',
       description: 'Once satisfied, begin regular lessons with your chosen tutor.',
       icon: (
-        <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-8 h-8 sm:w-12 sm:h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
         </svg>
       ),
@@ -65,17 +65,17 @@ const HowItWorksSection = () => {
 
             <div className="text-center">
               {/* Icon Circle */}
-              <div className="w-24 h-24 mx-auto mb-6 rounded-full gradient-bg flex items-center justify-center shadow-xl relative z-10">
+              <div className="w-16 h-16 sm:w-24 sm:h-24 mx-auto mb-4 sm:mb-6 rounded-full gradient-bg flex items-center justify-center shadow-xl relative z-10">
                 {step.icon}
               </div>
 
               {/* Step Number */}
-              <div className="text-5xl font-bold text-primary-200 mb-3">
+              <div className="text-3xl sm:text-5xl font-bold text-primary-200 mb-2 sm:mb-3">
                 {step.number}
               </div>
 
               {/* Content */}
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">
                 {step.title}
               </h3>
               <p className="text-gray-600 leading-relaxed">

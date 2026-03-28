@@ -32,7 +32,7 @@ const BlogPreviewSection = () => {
   return (
     <SectionWrapper background="gray" className="py-16 md:py-20" id="resources">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
           Education Tips & Resources
         </h2>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -40,7 +40,7 @@ const BlogPreviewSection = () => {
         </p>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-8">
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8">
         {articles.map((article, index) => (
           <Card key={index} hover className="overflow-hidden p-0">
             {/* Image */}
