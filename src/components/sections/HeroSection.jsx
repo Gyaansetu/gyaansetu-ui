@@ -1,4 +1,28 @@
+import { useState, useEffect } from 'react';
+
+const bannerMessages = [
+  { icon: '🚫', text: 'No tuition agents. No middlemen. No commission.' },
+  { icon: '🎯', text: 'Your child\'s first demo — free, no strings attached.' },
+  { icon: '📞', text: 'We call you. You choose your tutor. That simple.' },
+  { icon: '🔒', text: 'Every tutor is background-checked before they reach you.' },
+  { icon: '⚡', text: 'Get a tutor at home within 48 hours of signing up.' },
+];
+
 const HeroSection = ({ onOpenRegister }) => {
+  const [msgIndex, setMsgIndex] = useState(0);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setVisible(false);
+      setTimeout(() => {
+        setMsgIndex(i => (i + 1) % bannerMessages.length);
+        setVisible(true);
+      }, 350);
+    }, 3200);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section className="relative pt-32 md:pt-36 pb-24 md:pb-32 overflow-hidden bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50">
       {/* Animated background elements */}
@@ -27,8 +51,13 @@ const HeroSection = ({ onOpenRegister }) => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="text-center lg:text-left z-10 animate-slideInLeft">
-            <div className="inline-block px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full shadow-lg mb-6 animate-bounce-subtle">
-              <span className="text-teal-600 font-semibold text-sm">🎓 Welcome to the Future of Learning</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full shadow-lg mb-6 overflow-hidden">
+              <span
+                className="text-teal-600 font-semibold text-sm whitespace-nowrap"
+                style={{ opacity: visible ? 1 : 0, transition: 'opacity 0.35s ease' }}
+              >
+                {bannerMessages[msgIndex].icon} {bannerMessages[msgIndex].text}
+              </span>
             </div>
             <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-gray-900 leading-tight mb-6">
               Finding Tutors{' '}
@@ -51,14 +80,6 @@ const HeroSection = ({ onOpenRegister }) => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                 </span>
-              </button>
-              <button className="flex items-center gap-3 text-gray-700 hover:text-teal-600 transition-colors group">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-all duration-300 group-hover:scale-110">
-                  <svg className="w-7 h-7 text-teal-600 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
-                <span className="font-semibold text-lg">Watch how it works</span>
               </button>
             </div>
           </div>
@@ -105,7 +126,7 @@ const HeroSection = ({ onOpenRegister }) => {
 
               {/* Demo Session Card */}
               <div className="absolute bottom-12 left-0 bg-white rounded-2xl shadow-2xl p-5 w-80 animate-float hover-lift border border-gray-100">
-                <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center gap-3">
                   <div className="relative">
                     <img
                       src="https://ui-avatars.com/api/?name=Priya+Sharma&background=14b8a6&color=fff&size=48"
@@ -115,13 +136,18 @@ const HeroSection = ({ onOpenRegister }) => {
                     <div className="w-3 h-3 bg-green-500 rounded-full border-2 border-white absolute bottom-0 right-0 animate-pulse"></div>
                   </div>
                   <div className="flex-1">
-                    <p className="text-base font-semibold text-gray-900">Demo Session</p>
-                    <p className="text-sm text-gray-500">Today at 12.00 PM</p>
+                    <p className="text-base font-semibold text-gray-900">Priya Sharma</p>
+                    <p className="text-sm text-gray-500">Maths Tutor · 6 yrs exp</p>
+                    <div className="flex items-center gap-1 mt-1">
+                      {[1,2,3,4,5].map(s => (
+                        <svg key={s} className="w-3 h-3 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      ))}
+                      <span className="text-xs text-gray-500 ml-1">5.0</span>
+                    </div>
                   </div>
                 </div>
-                <button className="w-full bg-gradient-to-r from-pink-500 to-rose-500 text-white text-base font-semibold py-3 px-6 rounded-full hover:from-pink-600 hover:to-rose-600 transition-all duration-300 shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40 hover:scale-105">
-                  Join Now
-                </button>
               </div>
 
               {/* Chart Icon */}

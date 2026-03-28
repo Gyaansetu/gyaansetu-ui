@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import LandingPage from './pages/LandingPage';
 import FindTutorPage from './pages/FindTutorPage';
@@ -11,8 +11,17 @@ import Toast from './components/common/Toast';
 import useToast from './hooks/useToast';
 
 function AppContent() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const { toast, showError, showSuccess, hideToast } = useToast();
+  const prevUserRef = useRef(null);
+
+  // Show toast when user logs out
+  useEffect(() => {
+    if (prevUserRef.current && !user) {
+      showSuccess('You have been logged out successfully.');
+    }
+    prevUserRef.current = user;
+  }, [user]);
   const [currentPage, setCurrentPage] = useState('home');
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState('login');
@@ -22,15 +31,16 @@ function AppContent() {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const error = urlParams.get('error');
-    const email = urlParams.get('email');
-    const name = urlParams.get('name');
+    const token = urlParams.get('token');
 
-    if (error === 'not_registered') {
+    if (token) {
+      showSuccess('Logged in with Google successfully! Welcome back.');
+    } else if (error === 'not_registered') {
       // User tried to login but is not registered
       showError('Account not found. Please register first to continue.');
       setAuthMode('register');
       setAuthModalOpen(true);
-      
+
       // Clean URL
       window.history.replaceState({}, document.title, window.location.pathname);
     }
