@@ -31,13 +31,24 @@ const TutorDemoDashboard = () => {
   };
 
   const handleStatusUpdate = async (demoId, action) => {
+    let rejectionReason = undefined;
+    if (action === 'REJECT') {
+      rejectionReason = window.prompt('Please enter a reason for rejection:');
+      if (rejectionReason === null) return; // user cancelled
+      if (!rejectionReason.trim()) {
+        alert('Rejection reason cannot be empty.');
+        return;
+      }
+    }
     try {
-            await api.post(`/api/demos/${demoId}/action`, {
-        action: action
+      await api.post(`/demos/${demoId}/action`, {
+        action,
+        ...(rejectionReason !== undefined && { reason: rejectionReason.trim() })
       });
-            fetchDemoRequests(); // Refresh the list
+      fetchDemoRequests(); // Refresh the list
     } catch (err) {
-            alert('Failed to perform action. Please try again.');
+      const msg = err?.response?.data?.message || err?.message || 'Failed to perform action. Please try again.';
+      alert(msg);
     }
   };
 
@@ -62,6 +73,12 @@ const TutorDemoDashboard = () => {
         icon: '✅'
       },
       REJECTED: {
+        bg: 'bg-red-100',
+        text: 'text-red-800',
+        label: 'Rejected',
+        icon: '❌'
+      },
+      DENIED: {
         bg: 'bg-red-100',
         text: 'text-red-800',
         label: 'Rejected',
@@ -117,10 +134,10 @@ const TutorDemoDashboard = () => {
 
   const stats = {
     total: demoRequests.length,
-    pending: demoRequests.filter(d => d.status === 'PENDING').length,
+    pending: demoRequests.filter(d => d.status === 'PENDING' || d.status === 'REQUESTED').length,
     accepted: demoRequests.filter(d => d.status === 'ACCEPTED').length,
     completed: demoRequests.filter(d => d.status === 'COMPLETED').length,
-    rejected: demoRequests.filter(d => d.status === 'REJECTED').length
+    rejected: demoRequests.filter(d => d.status === 'REJECTED' || d.status === 'DENIED').length
   };
 
   if (isLoading) {

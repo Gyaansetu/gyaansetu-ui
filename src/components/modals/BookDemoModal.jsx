@@ -181,6 +181,7 @@ const BookDemoModal = ({ isOpen, onClose, tutor }) => {
 
     setLoading(true);
 
+    let bookingSucceeded = false;
     try {
       // Convert time to 24-hour format
       const timeIn24Hour = convertTo24Hour(formData.time);
@@ -192,22 +193,20 @@ const BookDemoModal = ({ isOpen, onClose, tutor }) => {
 
       const result = await demoService.createDemo({
         tutorId: tutor.id,
-        date: formData.date,              // LocalDate format: "2026-02-25"
-        from: timeIn24Hour,               // LocalTime format: "17:00"
-        to: endTime,                      // LocalTime format: "18:00"
+        date: formData.date,
+        from: timeIn24Hour,
+        to: endTime,
         houseNumber: formData.houseNumber.trim(),
         area: formData.area.trim(),
         city: formData.city.trim(),
         state: formData.state.trim(),
-        studentClasses: formData.studentClasses,  // Array of class strings
-        subjects: formData.subjects,              // Array of subject strings
-        numberOfStudents: parseInt(formData.numberOfStudents, 10),  // Integer
+        studentClasses: formData.studentClasses,
+        subjects: formData.subjects,
+        numberOfStudents: parseInt(formData.numberOfStudents, 10),
       });
 
-      
-      // If we get a result with demoId, it's successful
-      // (interceptor extracts the inner data object, not the ApiResponse wrapper)
       if (result && result.demoId) {
+        bookingSucceeded = true;
         showSuccess(`Demo session booked successfully with ${tutor.name}!`);
         setTimeout(() => {
           onClose();
@@ -223,14 +222,18 @@ const BookDemoModal = ({ isOpen, onClose, tutor }) => {
             numberOfStudents: 1
           });
           setErrors({});
+          setLoading(false);
         }, 1500);
       } else {
         showError(result?.message || 'Failed to book demo session');
       }
     } catch (error) {
-            showError('Failed to book demo session. Please try again.');
+      showError(error?.response?.data?.message || 'Failed to book demo session. Please try again.');
     } finally {
-      setLoading(false);
+      // Only reset loading on failure — on success we keep button disabled until modal closes
+      if (!bookingSucceeded) {
+        setLoading(false);
+      }
     }
   };
 
