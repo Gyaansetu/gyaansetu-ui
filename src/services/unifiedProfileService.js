@@ -53,10 +53,7 @@ const profileService = {
               throw error;
             }
           }
-          
-          // Get tutor's demo requests
-                    const tutorDemosResponse = await api.get('/demos/my');
-                    profileData.demos = tutorDemosResponse.data;
+          // Note: demos are fetched independently by TutorDemoDashboard
           break;
 
         case 'ADMIN':

@@ -3,6 +3,7 @@ import api from '../../services/api';
 
 const TutorDemoDashboard = () => {
   const [demoRequests, setDemoRequests] = useState([]);
+  const [allDemoRequests, setAllDemoRequests] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedStatus, setSelectedStatus] = useState('all');
@@ -10,19 +11,34 @@ const TutorDemoDashboard = () => {
 
   useEffect(() => {
     fetchDemoRequests();
-  }, [selectedStatus, sortBy]);
+  }, []);
+
+  useEffect(() => {
+    applyFilter();
+  }, [selectedStatus, sortBy, allDemoRequests]);
+
+  const applyFilter = () => {
+    let filtered = [...allDemoRequests];
+
+    if (selectedStatus !== 'all') {
+      filtered = filtered.filter((d) => d.status === selectedStatus);
+    }
+
+    if (sortBy === 'demoDate') {
+      filtered.sort((a, b) => new Date(a.date || a.demoDate) - new Date(b.date || b.demoDate));
+    } else if (sortBy === 'createdAt') {
+      filtered.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+    }
+
+    setDemoRequests(filtered);
+  };
 
   const fetchDemoRequests = async () => {
     setIsLoading(true);
     setError(null);
     try {
-            const response = await api.get('/demos/my', {
-        params: {
-          status: selectedStatus !== 'all' ? selectedStatus : undefined,
-          sortBy: sortBy
-        }
-      });
-            setDemoRequests(response.data || []);
+            const response = await api.get('/demos/my');
+            setAllDemoRequests(response.data || []);
     } catch (err) {
             setError(err.message || 'Failed to fetch demo requests');
     } finally {
@@ -133,11 +149,11 @@ const TutorDemoDashboard = () => {
   };
 
   const stats = {
-    total: demoRequests.length,
-    pending: demoRequests.filter(d => d.status === 'PENDING' || d.status === 'REQUESTED').length,
-    accepted: demoRequests.filter(d => d.status === 'ACCEPTED').length,
-    completed: demoRequests.filter(d => d.status === 'COMPLETED').length,
-    rejected: demoRequests.filter(d => d.status === 'REJECTED' || d.status === 'DENIED').length
+    total: allDemoRequests.length,
+    pending: allDemoRequests.filter(d => d.status === 'PENDING' || d.status === 'REQUESTED').length,
+    accepted: allDemoRequests.filter(d => d.status === 'ACCEPTED').length,
+    completed: allDemoRequests.filter(d => d.status === 'COMPLETED').length,
+    rejected: allDemoRequests.filter(d => d.status === 'REJECTED' || d.status === 'DENIED').length
   };
 
   if (isLoading) {
@@ -281,12 +297,12 @@ const TutorDemoDashboard = () => {
         </div>
       ) : (
         <div className="grid gap-4">
-          {demoRequests.map((demo) => {
+          {demoRequests.map((demo, index) => {
             const demoId = demo.id || demo.demoId || demo.requestId;
             
             return (
             <div
-              key={demoId || Math.random()}
+              key={demoId ?? index}
               className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow"
             >
               {/* Header with Request # and Status */}
